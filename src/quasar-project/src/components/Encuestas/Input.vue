@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div contenteditable="true" ref="element" @keydown="noEnter" :class="type">
+    <div :contenteditable="editable" ref="element" @keydown="noEnter" :class="type">
       Formulario sin titulo
     </div>
     <span></span>
@@ -14,14 +14,18 @@ const props = defineProps({
 });
 
 const element = ref(null);
-const isBtn = ref(false)
+const editable = ref(true)
 
 const toText = () => {
   return element.value.innerText;
 };
 
-const changeBtn = () => {
-  isBtn.value = !isBtn.value;
+const valueElement = (text) => {
+  element.value.innerText = text
+}
+
+const changeEditable = () => {
+  editable.value = false;
 }
 
 const noEnter = (e) => {
@@ -32,7 +36,7 @@ const noEnter = (e) => {
 };
 
 
-defineExpose({ toText, changeBtn });
+defineExpose({ toText, valueElement, changeEditable });
 </script>
 
 <style scoped>

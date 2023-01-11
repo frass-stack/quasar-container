@@ -1,16 +1,30 @@
 <template>
   <div id="option">
     <div class="check" @click="clicked"></div>
-    <Input type="question" />
+    <Input ref="input" type="question" />
   </div>
 </template>
 
 <script setup>
+import {ref, onMounted} from 'vue';
 import Input from "./Input.vue";
+
+let input = ref(null)
+
+const props = defineProps({
+  text: String,
+  disabled: Boolean
+})
 
 const clicked = () => {
   console.log("Clicked");
 };
+
+onMounted(()=>{
+  input.value.valueElement(props.text);
+  if(props.disabled) {input.value.changeEditable()}
+});
+
 </script>
 
 <style lang="scss" scoped>
