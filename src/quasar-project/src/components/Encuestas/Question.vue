@@ -1,7 +1,7 @@
 <template>
   <div id="item">
     <Input ref="question" type="question" />
-    <Option v-for="(op,i) in array" :key="i" :text="op"/>
+    <Option v-for="(op,i) in array" :key="i" :text="op" :index="i" @deleteOption="onDeleteOption" />
     <!-- <Option />
     <Option /> -->
     <Option v-if="extraOption" text="Otros" class="question" :disabled="extraOption" />
@@ -25,26 +25,26 @@ const props = defineProps({
   extra:Boolean,
   id: String
 })
-const array = ref([...props.array]);
+const arrayOptions = ref([...props.array]);
 const extraOption = ref(null);
 
 const onAddOption = () => {
-  console.log('Selecciono: onAddOption')
-  array.value.push('nuevoPregunta')
+  props.array.value.push('nuevoPregunta')
 }
 
 const onAddOther = () => {
-  // console.log('Selecciono: onAddOther')
-  // console.log(extraOption.value)
-  console.log(extraOption.value)
-  console.log(props.extra)
   if(props.extra === false){
     extraOption.value = true
-    console.log(props.extra)
-    console.log(extraOption.value)
   }else{
     extraOption.value = props.extra
   }
+}
+
+const onDeleteOption = (id) => {
+  console.log(props.array.value)
+  // if(props.array.length > 1){
+  //   props.array.value.splice(id,1);
+  // }
 }
 
 </script>

@@ -1,8 +1,8 @@
 <template>
   <div id="item">
     <span></span>
-    <Input ref="title" type="title" />
-    <Input ref="subtitle" type="subtitle" />
+    <Input :text="title" type="title" />
+    <Input :text="subtitle" type="subtitle" />
     <!-- <q-list dense padding class="rounded-borders">
       <p>item</p>
       <p>item</p>
@@ -11,20 +11,27 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+// import { ref } from "vue";
 import Input from "./Input.vue";
+import { useForm } from './useForm.js'
 
-const title = ref(null);
-const subtitle = ref(null);
+const { getTitle, getSubtitle } = useForm()
 
-const data = () => {
-  return {
-    title: title.value.toText(),
-    subtitle: subtitle.value.toText(),
-  };
-};
+// const title = getHeader.value.title
+const title = getTitle
+const subtitle = getSubtitle
 
-defineExpose({ getData: data });
+// const title = ref(null);
+// const subtitle = ref(null);
+
+// const data = () => {
+//   return {
+//     title: title.value.toText(),
+//     subtitle: subtitle.value.toText(),
+//   };
+// };
+
+// defineExpose({ getData: data });
 </script>
 
 <style lang="scss" scoped>

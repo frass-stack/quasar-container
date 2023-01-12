@@ -19,7 +19,7 @@ const clicked = () => {
 };
 
 
-const json = [
+const json = ref([
   {
     _id:"1",
     question:"Pregunta 1",
@@ -32,7 +32,7 @@ const json = [
     opciones:["D", "E", "F"],
     extra:false
   }
-]
+])
 
 </script>
 <style scoped>

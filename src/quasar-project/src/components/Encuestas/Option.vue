@@ -2,6 +2,7 @@
   <div id="option">
     <div class="check" @click="clicked"></div>
     <Input ref="input" type="question" />
+    <button @click="deleteOption">X</button>
   </div>
 </template>
 
@@ -13,8 +14,15 @@ let input = ref(null)
 
 const props = defineProps({
   text: String,
-  disabled: Boolean
+  disabled: Boolean,
+  index:Number
 })
+
+const emit = defineEmits(['deleteOption']);
+
+const deleteOption = () => {
+  emit('deleteOption', props.index)
+}
 
 const clicked = () => {
   console.log("Clicked");

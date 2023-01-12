@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div :contenteditable="editable" ref="element" @keydown="noEnter" :class="type">
-      Formulario sin titulo
+      {{  text  }}
     </div>
     <span></span>
   </div>
@@ -11,6 +11,7 @@ import { ref } from "vue";
 
 const props = defineProps({
   type: String,
+  text: String
 });
 
 const element = ref(null);
