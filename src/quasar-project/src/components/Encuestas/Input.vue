@@ -14,20 +14,20 @@ const props = defineProps({
   text: String
 });
 
-const element = ref(null);
-const editable = ref(true)
+// const element = ref(null);
+// const editable = ref(true)
 
-const toText = () => {
-  return element.value.innerText;
-};
+// const toText = () => {
+//   return element.value.innerText;
+// };
 
-const valueElement = (text) => {
-  element.value.innerText = text
-}
+// const valueElement = (text) => {
+//   element.value.innerText = text
+// }
 
-const changeEditable = () => {
-  editable.value = false;
-}
+// const changeEditable = () => {
+//   editable.value = false;
+// }
 
 const noEnter = (e) => {
   if (e.key === "Enter") {
@@ -37,7 +37,7 @@ const noEnter = (e) => {
 };
 
 
-defineExpose({ toText, valueElement, changeEditable });
+// defineExpose({ toText, valueElement, changeEditable });
 </script>
 
 <style scoped>

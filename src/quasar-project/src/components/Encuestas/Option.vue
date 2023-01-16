@@ -1,7 +1,7 @@
 <template>
   <div id="option">
     <div class="check" @click="clicked"></div>
-    <Input ref="input" type="question" />
+    <Input :text="text" ref="input" type="question" />
     <button @click="deleteOption">X</button>
   </div>
 </template>
@@ -29,8 +29,8 @@ const clicked = () => {
 };
 
 onMounted(()=>{
-  input.value.valueElement(props.text);
-  if(props.disabled) {input.value.changeEditable()}
+  // input.value.valueElement(props.text);
+  // if(props.disabled) {input.value.changeEditable()}
 });
 
 </script>

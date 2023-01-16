@@ -1,7 +1,7 @@
 <template>
   <div id="item">
-    <Input ref="question" type="question" />
-    <Option v-for="(op,i) in array" :key="i" :text="op" :index="i" @deleteOption="onDeleteOption" />
+    <Input :text="element.question" ref="question" type="question" />
+    <Option v-for="(op,i) in element.opciones" :key="i" :text="op" :index="i" @deleteOption="onDeleteOption" />
     <!-- <Option />
     <Option /> -->
     <Option v-if="extraOption" text="Otros" class="question" :disabled="extraOption" />
@@ -19,32 +19,40 @@ import Input from "./Input.vue";
 import Option from "./Option.vue";
 import AddOption from './AddOption.vue';
 
-
 const props = defineProps({
-  array: Array,
-  extra:Boolean,
-  id: String
+  // array: Array,
+  // extra:Boolean,
+  // id: String
+  element: {
+    _id: String,
+    question: String,
+    extra: Boolean,
+    opciones: Array,
+  }
 })
-const arrayOptions = ref([...props.array]);
+// const arrayOptions = ref([...props.element.opciones]);
 const extraOption = ref(null);
 
+
 const onAddOption = () => {
-  props.array.value.push('nuevoPregunta')
+  props.element.opciones.push('Nueva Opcion')
 }
 
 const onAddOther = () => {
-  if(props.extra === false){
+  if(props.element.extra === false){
     extraOption.value = true
+    console.log(extraOption.value)
   }else{
-    extraOption.value = props.extra
+    extraOption.value = props.element.extra
+    console.log(extraOption.value)
   }
 }
 
 const onDeleteOption = (id) => {
-  console.log(props.array.value)
-  // if(props.array.length > 1){
-  //   props.array.value.splice(id,1);
-  // }
+  if(props.element.opciones.length > 1){
+    props.element.opciones.splice(id, 1)
+  }
+  return props.element.opciones
 }
 
 </script>

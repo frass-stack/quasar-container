@@ -6,7 +6,20 @@ export const Store = defineStore("form", {
         title:"Sin titulo",
         subtitle:"Sin descripcion"
     },
-    text:'hola'
+    question: [
+      {
+        _id:"1",
+        question:"Pregunta 1",
+        opciones:["A", "B", "C"],
+        extra:true
+      },
+      {
+        _id:"2",
+        question:"Pregunta 2",
+        opciones:["D", "E", "F"],
+        extra:false
+      }
+    ]
   }),
   getters: {
     getTitle:(state) => {
@@ -14,6 +27,15 @@ export const Store = defineStore("form", {
     },
     getSubtitle:(state) => {
         return state.header.subtitle;
+    },
+    getQuestions:(state) => {
+      return state.question
+    },
+    getOpciones:(state) => {
+      state.question.forEach(e => {
+        console.log(e.question)
+        e.opciones.forEach(e => console.log(e))
+      })
     }
   },
   actions: {

@@ -8,6 +8,18 @@ export const useForm = () => {
 
     const getTitle = store.getTitle;
     const getSubtitle = store.getSubtitle;
+    const getQuestion = store.getQuestions;
+    const getOpciones = store.getOpciones
+
+    const getForm = () => {
+        console.log(getTitle.value)
+        console.log(getSubtitle.value)
+        // getQuestion.value.forEach(e => {
+        //     console.log(e.question)
+        //     console.log(e.opciones)
+        // })
+        console.log(getOpciones.value)
+    }
 
     // const setUser = (user) => {
     //     formStore.setUser(user);
@@ -21,6 +33,8 @@ export const useForm = () => {
         //!getters
         getTitle,
         getSubtitle,
+        getQuestion,
+        getForm,
         //!actions
         // setUser,
         // updateStates

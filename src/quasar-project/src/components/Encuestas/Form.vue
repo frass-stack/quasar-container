@@ -2,7 +2,7 @@
   <div class="q-pa-md q-gutter-sm form">
     <q-btn label="Console" color="primary" @click="clicked" />
     <Header ref="header" />
-    <Question v-for="op in json" :key="op._id" :array="op.opciones" :extra="op.extra" :id="op._id" />
+    <Question v-for="(op, index) in json" :key="index" :element="op" />
     <!-- <Question ref="" /> -->
   </div>
 </template>
@@ -11,28 +11,32 @@
 import { ref } from "vue";
 import Header from "./Header.vue";
 import Question from "./Question.vue";
+import { useForm } from './useForm.js'
 
 const header = ref(null);
+const { getQuestion, getSubtitle, getTitle, getForm } = useForm()
+
+const json = getQuestion
 
 const clicked = () => {
-  console.log(header.value.getData());
+  getForm()
 };
 
 
-const json = ref([
-  {
-    _id:"1",
-    question:"Pregunta 1",
-    opciones:["A", "B", "C"],
-    extra:true
-  },
-  {
-    _id:"2",
-    question:"Pregunta 2",
-    opciones:["D", "E", "F"],
-    extra:false
-  }
-])
+// const json = ref([
+//   {
+//     _id:"1",
+//     question:"Pregunta 1",
+//     opciones:["A", "B", "C"],
+//     extra:true
+//   },
+//   {
+//     _id:"2",
+//     question:"Pregunta 2",
+//     opciones:["D", "E", "F"],
+//     extra:false
+//   }
+// ])
 
 </script>
 <style scoped>
