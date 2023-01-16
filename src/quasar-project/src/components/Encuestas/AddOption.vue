@@ -1,25 +1,28 @@
 <template>
-    <div id="option">
-        <div class="row-btn">
-            <q-btn class="text" @click="addOption" >Agregar Opcion</q-btn>
-            <q-btn class="text" @click="addOther" >Agregar 'Otros'</q-btn>
-        </div>
+  <div id="option">
+    <div class="row-btn">
+      <q-btn class="text" @click="addOption">Agregar Opcion</q-btn>
+      <q-btn class="text" @click="addOther">Agregar 'Otros'</q-btn>
+      <q-btn class="text" @click="deleteQuestion">Eliminar pregunta</q-btn>
     </div>
+  </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 
-const emit = defineEmits(['addOption', 'addOther'])
+const emit = defineEmits(["addOption", "addOther", "delete"]);
 
 const addOption = () => {
-    emit('addOption')
-}
+  emit("addOption");
+};
 
 const addOther = () => {
-    emit('addOther')
-}
-
+  emit("addOther");
+};
+const deleteQuestion = () => {
+  emit("delete");
+};
 </script>
 
 <style scoped>
@@ -28,7 +31,7 @@ const addOther = () => {
   flex-direction: row;
   align-items: center;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .check {
@@ -41,12 +44,14 @@ const addOther = () => {
 }
 
 .text {
-    font-size: 24px;
+  font-size: 19px;
 }
 
 .row-btn {
-    display: flex;
-    flex-direction: row;
-    margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  margin-right: 10px;
 }
 </style>

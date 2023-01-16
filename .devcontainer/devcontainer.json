@@ -1,9 +1,9 @@
 {
-  "name": "quasar_environment",
+  "name": "quasar_environment2",
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "runArgs": ["--name", "quasar_environment"],
+  "runArgs": ["--name", "quasar_environment2"],
   "customizations": {
     "vscode": {
       "extensions": [

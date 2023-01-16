@@ -1,20 +1,39 @@
 <template>
   <div class="container">
-    <div :contenteditable="editable" ref="element" @keydown="noEnter" :class="type">
-      {{  text  }}
+    <div
+      :contenteditable="canEdit"
+      ref="element"
+      @keydown="noEnter"
+      @keyup="save"
+      :class="type"
+    >
+      {{ text }}
     </div>
     <span></span>
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, computed, onUpdated } from "vue";
+import { useForm } from "./useForm.js";
+
+const { isEditable, isPublish } = useForm();
 
 const props = defineProps({
   type: String,
-  text: String
+  text: String,
+  extra: Boolean,
 });
 
-// const element = ref(null);
+const emits = defineEmits(["changed"]);
+
+const canEdit = computed(() => {
+  if (isEditable.value && !props.extra) return true;
+  if (isEditable.value && props.extra) return false;
+  if (isPublish.value && !props.extra) return false;
+  return true;
+});
+
+const element = ref(null);
 // const editable = ref(true)
 
 // const toText = () => {
@@ -34,10 +53,16 @@ const noEnter = (e) => {
     e.preventDefault();
     return;
   }
+
+  // console.log(e.target.innerText + e.key);
 };
 
+const save = () => {
+  // console.log(element.value.innerText);
+  emits("changed", element.value.innerText);
+};
 
-// defineExpose({ toText, valueElement, changeEditable });
+// defineExpose({ toText });
 </script>
 
 <style scoped>

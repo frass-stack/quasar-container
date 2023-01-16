@@ -1,38 +1,47 @@
 <template>
   <div id="option">
-    <div class="check" @click="clicked"></div>
-    <Input :text="text" ref="input" type="question" />
-    <button @click="deleteOption">X</button>
+    <div class="check" :class="selected && 'checked'" @click="clicked"></div>
+    <Input
+      :text="text"
+      ref="input"
+      type="question"
+      :extra="extra"
+      @changed="change"
+    />
+    <button v-if="isEditable" @click="deleteOption">X</button>
   </div>
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue';
+import { ref, onMounted } from "vue";
 import Input from "./Input.vue";
+import { useForm } from "./useForm.js";
+const { isEditable, updateOptionQuestion } = useForm();
 
-let input = ref(null)
+let input = ref(null);
+const selected = ref(false);
 
 const props = defineProps({
   text: String,
   disabled: Boolean,
-  index:Number
-})
-
-const emit = defineEmits(['deleteOption']);
-
-const deleteOption = () => {
-  emit('deleteOption', props.index)
-}
-
-const clicked = () => {
-  console.log("Clicked");
-};
-
-onMounted(()=>{
-  // input.value.valueElement(props.text);
-  // if(props.disabled) {input.value.changeEditable()}
+  extra: { type: Boolean, default: false },
+  index: Number,
+  indexQuestion: Number,
 });
 
+const emit = defineEmits(["deleteOption"]);
+
+const deleteOption = () => {
+  emit("deleteOption", props.index);
+};
+
+const clicked = () => {
+  selected.value = !selected.value;
+};
+
+const change = (text) => {
+  updateOptionQuestion(props.indexQuestion, props.index, text);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -51,5 +60,9 @@ onMounted(()=>{
   border: 2px solid grey;
   background-color: transparent;
   margin-right: 10px;
+}
+
+.checked {
+  background-color: rgba(255, 0, 0, 0.748);
 }
 </style>

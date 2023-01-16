@@ -1,8 +1,14 @@
 <template>
   <div class="q-pa-md q-gutter-sm form">
-    <q-btn label="Console" color="primary" @click="clicked" />
+    <q-btn label="Submit" color="primary" @click="clicked" />
+    <q-btn label="Agregar pregunta" color="primary" @click="add" />
     <Header ref="header" />
-    <Question v-for="(op, index) in json" :key="index" :element="op" />
+    <Question
+      v-for="(op, index) in json"
+      :key="index"
+      :element="op"
+      :index="index"
+    />
     <!-- <Question ref="" /> -->
   </div>
 </template>
@@ -11,17 +17,20 @@
 import { ref } from "vue";
 import Header from "./Header.vue";
 import Question from "./Question.vue";
-import { useForm } from './useForm.js'
+import { useForm } from "./useForm.js";
 
 const header = ref(null);
-const { getQuestion, getSubtitle, getTitle, getForm } = useForm()
+const { getQuestion, getSubtitle, getTitle, getForm, addQuestion } = useForm();
 
-const json = getQuestion
+const json = getQuestion;
 
 const clicked = () => {
-  getForm()
+  getForm();
 };
 
+const add = () => {
+  addQuestion();
+};
 
 // const json = ref([
 //   {
@@ -37,7 +46,6 @@ const clicked = () => {
 //     extra:false
 //   }
 // ])
-
 </script>
 <style scoped>
 .form {

@@ -2,48 +2,89 @@ import { defineStore } from "pinia";
 
 export const Store = defineStore("form", {
   state: () => ({
-    header: {
-        title:"Sin titulo",
-        subtitle:"Sin descripcion"
-    },
-    question: [
-      {
-        _id:"1",
-        question:"Pregunta 1",
-        opciones:["A", "B", "C"],
-        extra:true
-      },
-      {
-        _id:"2",
-        question:"Pregunta 2",
-        opciones:["D", "E", "F"],
-        extra:false
-      }
-    ]
+    id: null,
+    title: null,
+    subtitle: null,
+    questions: [],
+    editable: false,
+    publish: false,
   }),
   getters: {
-    getTitle:(state) => {
-        return state.header.title;
+    getID: (state) => {
+      return state.id;
     },
-    getSubtitle:(state) => {
-        return state.header.subtitle;
+    getTitle: (state) => {
+      return state.title;
     },
-    getQuestions:(state) => {
-      return state.question
+    getSubtitle: (state) => {
+      return state.subtitle;
     },
-    getOpciones:(state) => {
-      state.question.forEach(e => {
-        console.log(e.question)
-        e.opciones.forEach(e => console.log(e))
-      })
-    }
+    getQuestions: (state) => {
+      return state.questions;
+    },
+    isEditable: (state) => {
+      return state.editable;
+    },
+    isPublish: (state) => {
+      return state.publish;
+    },
   },
   actions: {
-    setTitle(payload){
-        this.header.title = payload
+    setID(id) {
+      this.id = id;
     },
-    setSubtitle(payload){
-        this.header.subtitle = payload
+    setTitle(payload) {
+      this.title = payload;
+    },
+    setSubtitle(payload) {
+      this.subtitle = payload;
+    },
+    setQuestions(array) {
+      this.questions = array;
+    },
+    setEditable() {
+      this.editable = true;
+    },
+    setNotEditable() {
+      this.editable = false;
+    },
+    toggleExtra(id) {
+      for (let question of this.questions) {
+        if (question._id === id) {
+          question.extra = !question.extra;
+        }
+      }
+    },
+    setPublish() {
+      this.publish = true;
+    },
+    deleteOption(id, index) {
+      for (let question of this.questions) {
+        if (question._id === id) {
+          if (question.opciones.length > 1) {
+            question.opciones.splice(index, 1);
+          }
+        }
+      }
+    },
+
+    updateTitleQuestion(index, payload) {
+      this.questions[index].question = payload;
+    },
+
+    updateOptionQuestion(index, indexOpc, payload) {
+      this.questions[index].opciones[indexOpc] = payload;
+    },
+    addQuestion() {
+      this.questions.push({
+        _id: null,
+        question: "Pregunta nueva",
+        opciones: ["Nueva opcion"],
+        extra: false,
+      });
+    },
+    deleteQuestion(index) {
+      this.questions.splice(index, 1);
     },
   },
 });
